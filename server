@@ -1,0 +1,29 @@
+from xmlrpc.server import SimpleXMLRPCServer
+
+def add(a, b):
+    print("add called with", a, b)
+    return a + b
+
+def subtract(a, b):
+    print("subtract called with", a, b)
+    return a - b
+
+def multiply(a, b):
+    print("multiply called with", a, b)
+    return a * b
+
+def divide(a, b):
+    print("divide called with", a, b)
+    if b == 0:
+        return "Error: Division by zero"
+    return a / b
+
+server = SimpleXMLRPCServer(("127.0.0.1", 8000), logRequests=True)
+print("RPC Server started on port 8000")
+
+server.register_function(add, "add")
+server.register_function(subtract, "subtract")
+server.register_function(multiply, "multiply")
+server.register_function(divide, "divide")
+
+server.serve_forever()
